@@ -2,21 +2,22 @@ package me.justahuman.draggablebookmarks.mixin.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.justahuman.draggablebookmarks.api.BookmarkExtension;
-import mezz.jei.Internal;
-import mezz.jei.bookmarks.BookmarkList;
+import mezz.jei.common.Internal;
+import mezz.jei.common.bookmarks.BookmarkList;
+import mezz.jei.common.gui.GuiScreenHelper;
+import mezz.jei.common.gui.elements.GuiIconToggleButton;
+import mezz.jei.common.gui.ghost.GhostIngredientDragManager;
+import mezz.jei.common.gui.overlay.IngredientGridWithNavigation;
+import mezz.jei.common.gui.overlay.bookmarks.BookmarkOverlay;
+import mezz.jei.common.gui.textures.Textures;
+import mezz.jei.common.input.IKeyBindings;
+import mezz.jei.common.input.IUserInputHandler;
+import mezz.jei.common.input.handlers.CheatInputHandler;
+import mezz.jei.common.input.handlers.CombinedInputHandler;
+import mezz.jei.common.input.handlers.ProxyInputHandler;
 import mezz.jei.common.network.IConnectionToServer;
 import mezz.jei.core.config.IClientConfig;
 import mezz.jei.core.config.IWorldConfig;
-import mezz.jei.gui.GuiScreenHelper;
-import mezz.jei.gui.elements.GuiIconToggleButton;
-import mezz.jei.gui.ghost.GhostIngredientDragManager;
-import mezz.jei.gui.overlay.IngredientGridWithNavigation;
-import mezz.jei.gui.overlay.bookmarks.BookmarkOverlay;
-import mezz.jei.gui.textures.Textures;
-import mezz.jei.input.mouse.IUserInputHandler;
-import mezz.jei.input.mouse.handlers.CheatInputHandler;
-import mezz.jei.input.mouse.handlers.CombinedInputHandler;
-import mezz.jei.input.mouse.handlers.ProxyInputHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import org.spongepowered.asm.mixin.Final;
@@ -38,7 +39,7 @@ public abstract class BookmarkOverlayMixin implements BookmarkExtension {
     @Shadow(remap = false) @Final private CheatInputHandler cheatInputHandler;
 
     @Inject(at = @At("TAIL"), method = "<init>")
-    public void init(BookmarkList bookmarkList, Textures textures, IngredientGridWithNavigation contents, IClientConfig clientConfig, IWorldConfig worldConfig, GuiScreenHelper guiScreenHelper, IConnectionToServer serverConnection, CallbackInfo ci) {
+    public void init(BookmarkList bookmarkList, Textures textures, IngredientGridWithNavigation contents, IClientConfig clientConfig, IWorldConfig worldConfig, GuiScreenHelper guiScreenHelper, IConnectionToServer serverConnection, IKeyBindings keyBindings, CallbackInfo ci) {
         this.draggablebookmarks$ghostIngredientDragManager = new GhostIngredientDragManager(this.contents, guiScreenHelper, Internal.getRegisteredIngredients(), this.worldConfig);
     }
 

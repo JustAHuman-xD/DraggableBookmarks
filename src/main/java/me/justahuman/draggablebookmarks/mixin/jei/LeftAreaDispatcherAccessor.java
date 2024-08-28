@@ -1,7 +1,7 @@
 package me.justahuman.draggablebookmarks.mixin.jei;
 
-import mezz.jei.gui.overlay.bookmarks.ILeftAreaContent;
-import mezz.jei.gui.overlay.bookmarks.LeftAreaDispatcher;
+import mezz.jei.common.gui.overlay.bookmarks.ILeftAreaContent;
+import mezz.jei.common.gui.overlay.bookmarks.LeftAreaDispatcher;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
