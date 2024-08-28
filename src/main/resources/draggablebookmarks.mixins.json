@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.justahuman.draggablebookmarks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "draggablebookmarks.refmap.json",
+  "client": [
+    "jei.BookmarkOverlayMixin",
+    "jei.GuiEventHandlerMixin",
+    "jei.LeftAreaDispatcherAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
