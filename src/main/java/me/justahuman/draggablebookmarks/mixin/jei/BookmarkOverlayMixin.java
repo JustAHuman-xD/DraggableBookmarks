@@ -1,5 +1,6 @@
 package me.justahuman.draggablebookmarks.mixin.jei;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.justahuman.draggablebookmarks.api.BookmarkExtension;
 import mezz.jei.common.Internal;
@@ -60,11 +61,9 @@ public abstract class BookmarkOverlayMixin implements BookmarkExtension {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "createInputHandler", remap = false, cancellable = true)
-    public void createInputHandler(CallbackInfoReturnable<IUserInputHandler> cir) {
-        IUserInputHandler bookmarkButtonInputHandler = this.bookmarkButton.createInputHandler();
-        IUserInputHandler displayedInputHandler = new CombinedInputHandler(this.draggablebookmarks$ghostIngredientDragManager.createInputHandler(), this.cheatInputHandler, this.contents.createInputHandler(), bookmarkButtonInputHandler);
-        cir.setReturnValue(new ProxyInputHandler(() -> this.isListDisplayed() ? displayedInputHandler : bookmarkButtonInputHandler));
+    @ModifyReturnValue(method = "createInputHandler", at = @At("RETURN"), remap = false)
+    public IUserInputHandler createInputHandler(IUserInputHandler original) {
+        return new CombinedInputHandler(original, this.draggablebookmarks$ghostIngredientDragManager.createInputHandler());
     }
 
     @Shadow(remap = false) public abstract boolean isListDisplayed();
