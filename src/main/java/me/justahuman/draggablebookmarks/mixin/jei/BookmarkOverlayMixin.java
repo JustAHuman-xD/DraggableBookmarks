@@ -5,16 +5,13 @@ import me.justahuman.draggablebookmarks.api.BookmarkExtension;
 import mezz.jei.common.Internal;
 import mezz.jei.common.bookmarks.BookmarkList;
 import mezz.jei.common.gui.GuiScreenHelper;
-import mezz.jei.common.gui.elements.GuiIconToggleButton;
 import mezz.jei.common.gui.ghost.GhostIngredientDragManager;
 import mezz.jei.common.gui.overlay.IngredientGridWithNavigation;
 import mezz.jei.common.gui.overlay.bookmarks.BookmarkOverlay;
 import mezz.jei.common.gui.textures.Textures;
 import mezz.jei.common.input.IKeyBindings;
 import mezz.jei.common.input.IUserInputHandler;
-import mezz.jei.common.input.handlers.CheatInputHandler;
 import mezz.jei.common.input.handlers.CombinedInputHandler;
-import mezz.jei.common.input.handlers.ProxyInputHandler;
 import mezz.jei.common.network.IConnectionToServer;
 import mezz.jei.core.config.IClientConfig;
 import mezz.jei.core.config.IWorldConfig;
@@ -28,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BookmarkOverlay.class)
 public abstract class BookmarkOverlayMixin implements BookmarkExtension {
@@ -36,8 +32,6 @@ public abstract class BookmarkOverlayMixin implements BookmarkExtension {
 
     @Shadow(remap = false) @Final private IngredientGridWithNavigation contents;
     @Shadow(remap = false) @Final private IWorldConfig worldConfig;
-    @Shadow(remap = false) @Final private GuiIconToggleButton bookmarkButton;
-    @Shadow(remap = false) @Final private CheatInputHandler cheatInputHandler;
 
     @Inject(at = @At("TAIL"), method = "<init>")
     public void init(BookmarkList bookmarkList, Textures textures, IngredientGridWithNavigation contents, IClientConfig clientConfig, IWorldConfig worldConfig, GuiScreenHelper guiScreenHelper, IConnectionToServer serverConnection, IKeyBindings keyBindings, CallbackInfo ci) {
