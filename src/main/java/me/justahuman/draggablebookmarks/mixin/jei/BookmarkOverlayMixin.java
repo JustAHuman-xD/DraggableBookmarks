@@ -8,13 +8,11 @@ import mezz.jei.common.network.IConnectionToServer;
 import mezz.jei.core.config.IClientConfig;
 import mezz.jei.core.config.IWorldConfig;
 import mezz.jei.gui.GuiScreenHelper;
-import mezz.jei.gui.elements.GuiIconToggleButton;
 import mezz.jei.gui.ghost.GhostIngredientDragManager;
 import mezz.jei.gui.overlay.IngredientGridWithNavigation;
 import mezz.jei.gui.overlay.bookmarks.BookmarkOverlay;
 import mezz.jei.gui.textures.Textures;
 import mezz.jei.input.mouse.IUserInputHandler;
-import mezz.jei.input.mouse.handlers.CheatInputHandler;
 import mezz.jei.input.mouse.handlers.CombinedInputHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -33,8 +31,6 @@ public abstract class BookmarkOverlayMixin implements BookmarkExtension {
 
     @Shadow(remap = false) @Final private IngredientGridWithNavigation contents;
     @Shadow(remap = false) @Final private IWorldConfig worldConfig;
-    @Shadow(remap = false) @Final private GuiIconToggleButton bookmarkButton;
-    @Shadow(remap = false) @Final private CheatInputHandler cheatInputHandler;
 
     @Inject(at = @At("TAIL"), method = "<init>")
     public void init(BookmarkList bookmarkList, Textures textures, IngredientGridWithNavigation contents, IClientConfig clientConfig, IWorldConfig worldConfig, GuiScreenHelper guiScreenHelper, IConnectionToServer serverConnection, CallbackInfo ci) {
