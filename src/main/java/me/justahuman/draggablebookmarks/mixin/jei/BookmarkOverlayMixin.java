@@ -16,7 +16,6 @@ import mezz.jei.gui.textures.Textures;
 import mezz.jei.input.mouse.IUserInputHandler;
 import mezz.jei.input.mouse.handlers.CheatInputHandler;
 import mezz.jei.input.mouse.handlers.CombinedInputHandler;
-import mezz.jei.input.mouse.handlers.ProxyInputHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import org.spongepowered.asm.mixin.Final;
@@ -27,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BookmarkOverlay.class)
 public abstract class BookmarkOverlayMixin implements BookmarkExtension {
