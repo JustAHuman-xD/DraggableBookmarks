@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -59,11 +60,9 @@ public abstract class BookmarkOverlayMixin implements BookmarkExtension {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "createInputHandler", remap = false, cancellable = true)
-    public void createInputHandler(CallbackInfoReturnable<IUserInputHandler> cir) {
-        IUserInputHandler bookmarkButtonInputHandler = this.bookmarkButton.createInputHandler();
-        IUserInputHandler displayedInputHandler = new CombinedInputHandler(this.draggablebookmarks$ghostIngredientDragManager.createInputHandler(), this.cheatInputHandler, this.contents.createInputHandler(), bookmarkButtonInputHandler);
-        cir.setReturnValue(new ProxyInputHandler(() -> this.isListDisplayed() ? displayedInputHandler : bookmarkButtonInputHandler));
+    @ModifyVariable(method = "createInputHandler", name = "displayedInputHandler", at = @At(value = "STORE", ordinal = 0), remap = false)
+    public IUserInputHandler createInputHandler(IUserInputHandler value) {
+        return new CombinedInputHandler(this.draggablebookmarks$ghostIngredientDragManager.createInputHandler(), value);
     }
 
     @Shadow(remap = false) public abstract boolean isListDisplayed();
